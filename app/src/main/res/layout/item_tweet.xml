@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/shape_border"
+    tools:context=".LoginActivity"
+    >
+
+
+
+<RelativeLayout
     android:id="@+id/RLItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:layout_marginTop="5dp">
+    android:layout_marginTop="5dp"
+    android:background="#000"
+    app:barrierMargin="@dimen/activity_horizontal_margin">
 
     <ImageView
         android:id="@+id/ivProfileImage"
@@ -26,7 +39,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="rpjiofhewfoew" />
+        android:textColor="?attr/text_color"
+        android:textStyle="bold"
+        tools:text="Placeholder text" />
 
     <TextView
         android:id="@+id/tvBody"
@@ -36,17 +51,45 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
-        tools:text="ofobewufbewoufb" />
+        android:textColor="?attr/text_color"
+        tools:text="Placeholder text" />
 
     <ImageView
         android:id="@+id/ivMedia"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvBody"
-        android:layout_alignParentStart="true"
+        android:layout_alignStart="@+id/tvBody"
+        android:layout_alignEnd="@+id/tvBody"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="0dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvRelativeTime"
+        android:layout_width="87dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="150dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="124dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:text="Placeholder text"
+        android:textColor="?attr/text_color" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="21dp"
+        android:layout_height="21dp"
+        android:layout_above="@+id/tvBody"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="-2dp"
+        android:layout_toEndOf="@+id/tvScreenName"
+        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+
 </RelativeLayout>
+</LinearLayout>

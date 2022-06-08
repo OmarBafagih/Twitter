@@ -21,6 +21,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     Context context;
     List<Tweet> tweets;
 
+
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
@@ -62,6 +63,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         ImageView ivMedia;
+        TextView tvRelativeTime;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -69,19 +71,26 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
+
 
         }
 
         public void bind(Tweet tweet) {
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
+            tvRelativeTime.setText(tweet.createdAt);
 
-            int radius = 10;
+            int radius = 50;
             //loading media image with glide into imageview
             Glide.with(context).load(tweet.user.profileImageUrl)
                     .transform(new RoundedCorners(radius)).into(ivProfileImage);
-            Glide.with(context).load(tweet.media).placeholder(R.drawable.ic_launcher)
-                    .transform(new RoundedCorners(radius)).into(ivMedia);
+
+            Glide.with(context).load(tweet.media)
+//                    .override(680, 454)
+//                    .transform(new RoundedCorners(radius))
+                    .into(ivMedia);
+
 
 
         }

@@ -6,11 +6,44 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#000</item>
+        <item name="background_color">#131313</item>
+        <!--     Our app's background changes to black when dark mode is activated -->
+        <item name="text_color">#ffff</item>
+        <!--     text and button color change to white to contrast with the app's background-->
+        <item name="button_color">#ffff</item>
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#000</item>
+        <item name="background_color">#131313</item>
+        <!--     Our app's background changes to black when dark mode is activated -->
+        <item name="text_color">#ffff</item>
+        <!--     text and button color change to white to contrast with the app's background-->
+        <item name="button_color">#ffff</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
+    <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="colorAccent">#000</item>
+        <item name="background_color">#131313</item>
+        <!--     Our app's background changes to black when dark mode is activated -->
+        <item name="text_color">#ffff</item>
+        <!--     text and button color change to white to contrast with the app's background-->
+        <item name="button_color">#ffff</item>
+    </style>
+
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight"/>-->
+
 
 </resources>

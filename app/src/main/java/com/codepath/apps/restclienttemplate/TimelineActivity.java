@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -47,6 +48,10 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setTheme(R.style.darkTheme); //when dark mode is enabled, we use the dark theme
+
+
         setContentView(R.layout.activity_timeline);
 
         client = TwitterApp.getRestClient(this);//
@@ -54,6 +59,11 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets = findViewById(R.id.rvTweets); // find recyclerview by id
         tweets = new ArrayList<>(); // initialize list of tweets
         adapter = new TweetsAdapter(this, tweets); //initializing tweets adapter
+
+        ViewGroup.MarginLayoutParams marginLayoutParams = new ViewGroup.MarginLayoutParams(rvTweets.getLayoutParams());
+        marginLayoutParams.setMargins(0, 100, 0, 10);
+        rvTweets.setLayoutParams(marginLayoutParams);
+        rvTweets.requestLayout();
 
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter); // using the tweetsAdapter within this recycler view
@@ -94,7 +104,10 @@ public class TimelineActivity extends AppCompatActivity {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
+        adapter.clear();
+        populateHomeTimeline();
+        swipeContainer.setRefreshing(false);
+       /* client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 JSONArray jsonArray = json.jsonArray;
@@ -117,7 +130,7 @@ public class TimelineActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
     }
 
 
@@ -185,3 +198,5 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 }
+
+

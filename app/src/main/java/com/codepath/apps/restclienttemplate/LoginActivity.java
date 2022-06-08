@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
@@ -18,8 +20,16 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	private final String TAG = "Login Activity";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
 		super.onCreate(savedInstanceState);
+
+
+
 		setContentView(R.layout.activity_login);
+
+		//setTheme(R.style.darkTheme);
+		//AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
 
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
