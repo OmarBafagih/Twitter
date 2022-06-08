@@ -5,9 +5,12 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +60,26 @@ public class TimelineActivity extends AppCompatActivity {
 
         populateHomeTimeline(); //populating timeline using this method
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //add the menu items to the action bar/inflate the menu
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         switch (item.getItemId()){
+             case R.id.compose:
+                 Toast.makeText(this, "Compose", Toast.LENGTH_SHORT).show();
+                 return true;
+             default:
+                 break;
+         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void populateHomeTimeline() {
