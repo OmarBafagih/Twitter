@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ public class TimelineActivity extends AppCompatActivity {
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
+    Button btnLogout;
 
     public static final String TAG = "TimelineActivity";
     @Override
@@ -37,13 +39,21 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApp.getRestClient(this);//
 
-
         rvTweets = findViewById(R.id.rvTweets); // find recyclerview by id
         tweets = new ArrayList<>(); // initialize list of tweets
         adapter = new TweetsAdapter(this, tweets); //initializing tweets adapter
 
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter); // using the tweetsAdapter within this recycler view
+
+        btnLogout = findViewById(R.id.btnLogout); // refers to the logout button within the view
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                client.clearAccessToken();
+            }
+        });
 
         populateHomeTimeline(); //populating timeline using this method
 
