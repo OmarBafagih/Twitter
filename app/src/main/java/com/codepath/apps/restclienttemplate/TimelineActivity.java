@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +31,13 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
 
-    TwitterClient client;
-    RecyclerView rvTweets;
-    List<Tweet> tweets;
-    TweetsAdapter adapter;
-    Button btnLogout;
+    private final int REQUEST_CODE = 20;
+
+    private TwitterClient client;
+    private RecyclerView rvTweets;
+    private List<Tweet> tweets;
+    private TweetsAdapter adapter;
+    private Button btnLogout;
 
     public static final String TAG = "TimelineActivity";
     @Override
@@ -76,13 +80,32 @@ public class TimelineActivity extends AppCompatActivity {
              case R.id.compose:
                  //starts the activity in which we can compose a new tweet
                  Intent intent = new Intent(this, ComposeActivity.class);
-                 startActivity(intent);
+                 startActivityForResult(intent, REQUEST_CODE);
                  return true;
              default:
                  break;
          }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //if the request code is the same as the originally used request code for this request
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+            //unwrapping Parcel sent with intent from ComposeActivity closure
+                //this is the Tweet object obtained from the parcel
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+                //adding the tweet to the tweets arrayList
+            tweets.add(0, tweet);
+                //notifying the adapter that an item has been inserted (this will actually make the
+                //adapter check the array for new items and reflect that change on the recycler view
+            adapter.notifyItemInserted(0);
+                //making the recycler view scroll up to the top
+                //since a new tweet has been added to the top of the list (position 0)
+            rvTweets.smoothScrollToPosition(0);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void populateHomeTimeline() {
