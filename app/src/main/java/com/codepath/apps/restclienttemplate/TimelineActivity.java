@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -73,7 +74,9 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
          switch (item.getItemId()){
              case R.id.compose:
-                 Toast.makeText(this, "Compose", Toast.LENGTH_SHORT).show();
+                 //starts the activity in which we can compose a new tweet
+                 Intent intent = new Intent(this, ComposeActivity.class);
+                 startActivity(intent);
                  return true;
              default:
                  break;
