@@ -8,21 +8,20 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ ]	User can **sign in to Twitter** using OAuth login
-* [ ]	User can **view tweets from their home timeline**
-  * [ ] User is displayed the username, name, and body for each tweet
-  * [ ] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
-* [ ] User can **compose and post a new tweet**
-  * [ ] User can click a “Compose” icon in the Action Bar on the top right
-  * [ ] User can then enter a new tweet and post this to Twitter
-  * [ ] User is taken back to home timeline with **new tweet visible** in timeline
-  * [ ] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
-* [ ] User can **see a counter with total number of characters left for tweet** on compose tweet page
-* [ ] User can **pull down to refresh tweets timeline**
-* [ ] User can **see embedded image media within a tweet** on list or detail view.
+* [x]	User can **sign in to Twitter** using OAuth login
+* [x]	User can **view tweets from their home timeline**
+  * [x] User is displayed the username, name, and body for each tweet
+* [x] User can **compose and post a new tweet**
+  * [x] User can click a “Compose” icon in the Action Bar on the top right
+  * [x] User can then enter a new tweet and post this to Twitter
+  * [x] User is taken back to home timeline with **new tweet visible** in timeline
+  * [x] Newly created tweet should be manually inserted into the timeline and not rely on a full refresh
+* [x] User can **see a counter with total number of characters left for tweet** on compose tweet page
+* [x] User can **pull down to refresh tweets timeline**
+* [x] User can **see embedded image media within a tweet** on list or detail view.
 
 The following **optional** features are implemented:
-
+* [x] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
 * [ ] User is using **"Twitter branded" colors and styles**
 * [ ] User sees an **indeterminate progress indicator** when any background or network task is happening
 * [ ] User can **select "reply" from home timeline to respond to a tweet**
