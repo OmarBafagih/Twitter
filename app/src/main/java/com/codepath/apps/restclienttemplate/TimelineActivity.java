@@ -2,25 +2,32 @@ package com.codepath.apps.restclienttemplate;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +38,9 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class TimelineActivity extends AppCompatActivity {
+
+
+public class TimelineActivity extends AppCompatActivity{
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -42,17 +51,23 @@ public class TimelineActivity extends AppCompatActivity {
     private RecyclerView rvTweets;
     private List<Tweet> tweets;
     private TweetsAdapter adapter;
-    private Button btnLogout;
+    private ImageButton btnCompose;
+    public static ImageView ivRetweet;
 
     public static final String TAG = "TimelineActivity";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(R.style.darkTheme); //when dark mode is enabled, we use the dark theme
-
-
+        setTheme(R.style.darkTheme);
         setContentView(R.layout.activity_timeline);
+
+        //Toolbar toolbar = (Toolbar) findViewById()
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
+
 
         client = TwitterApp.getRestClient(this);//
 
@@ -68,12 +83,12 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter); // using the tweetsAdapter within this recycler view
 
-        btnLogout = findViewById(R.id.btnLogout); // refers to the logout button within the view
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+        btnCompose = (ImageButton) findViewById(R.id.btnCompose); // refers to the logout button within the view
+        btnCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                client.clearAccessToken();
+                Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -84,10 +99,6 @@ public class TimelineActivity extends AppCompatActivity {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
-
                 fetchTimelineAsync(0);
             }
         });
@@ -97,8 +108,22 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+        //ivReply = findViewById(R.id.ivRetweet);
+        /*ivRetweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });*/
+
 
     }
+
+
+    public void reply(View view){
+
+    }
+
 
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
@@ -107,30 +132,6 @@ public class TimelineActivity extends AppCompatActivity {
         adapter.clear();
         populateHomeTimeline();
         swipeContainer.setRefreshing(false);
-       /* client.getHomeTimeline(new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Headers headers, JSON json) {
-                JSONArray jsonArray = json.jsonArray;
-                try {
-                    adapter.clear();
-                    Log.i(TAG, "refresh sucess");
-                    adapter.addAll(Tweet.fromJsonArray(jsonArray));
-                    swipeContainer.setRefreshing(false);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Json Exception", e);
-                    e.printStackTrace();
-                }
-                // Now we call setRefreshing(false) to signal refresh has finished
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                Log.e(TAG, "Refresh OnFailure", throwable);
-
-
-            }
-        });*/
     }
 
 
@@ -139,16 +140,19 @@ public class TimelineActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //add the menu items to the action bar/inflate the menu
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        //FToolbar toolbar = findViewById(R.)
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
          switch (item.getItemId()){
-             case R.id.compose:
+             case R.id.logOut:
                  //starts the activity in which we can compose a new tweet
-                 Intent intent = new Intent(this, ComposeActivity.class);
-                 startActivityForResult(intent, REQUEST_CODE);
+                 //Intent intent = new Intent(this, ComposeActivity.class);
+                 //startActivityForResult(intent, REQUEST_CODE);
+                 finish();
+                 client.clearAccessToken();
                  return true;
              default:
                  break;

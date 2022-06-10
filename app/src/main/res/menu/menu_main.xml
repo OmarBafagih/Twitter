@@ -4,8 +4,9 @@
     >
 
     <item
-        android:id="@+id/compose"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/logOut"
+        android:icon="@drawable/log_out_icon"
         android:title="Compose"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 </menu>

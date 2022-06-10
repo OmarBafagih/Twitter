@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -18,7 +18,7 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000</item>
         <item name="colorPrimaryDark">#000</item>
@@ -31,7 +31,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="darkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="darkTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#000</item>
         <item name="colorPrimaryDark">#000</item>
@@ -41,6 +41,13 @@
         <item name="text_color">#ffff</item>
         <!--     text and button color change to white to contrast with the app's background-->
         <item name="button_color">#ffff</item>
+    </style>
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
+
+        <!-- Support library compatibility -->
+        <item name="android:background">@drawable/ic_launcher_twitter_round</item>// your nine patch image
+        <item name="android:icon">@android:color/transparent</item>
     </style>
 
 <!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight"/>-->

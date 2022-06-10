@@ -67,7 +67,7 @@ public class Tweet {
             long time = sf.parse(rawJsonDate).getTime();
             long now = System.currentTimeMillis();
 
-            final long diff = now - time;
+            final long diff = time - now;
             if (diff < MINUTE_MILLIS) {
                 return "just now";
             } else if (diff < 2 * MINUTE_MILLIS) {
