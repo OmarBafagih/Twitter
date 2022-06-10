@@ -4,6 +4,8 @@
 
 Time spent: **X** hours spent in total
 
+https://github.com/OmarBafagih/Twitter/blob/main/Twitter_Demo.mp4
+
 ## User Stories
 
 The following **required** functionality is completed:
