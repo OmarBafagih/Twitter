@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
@@ -66,6 +70,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
         private final int REQUEST_CODE = 21;
 
+        private TwitterClient twitterClient;
+
 
         Boolean retweeted = false;
         Boolean liked = false;
@@ -79,6 +85,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvRetweetCount;
         ImageView ivLike;
         ImageView ivRetweet;
+        ImageView ivReply;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -91,6 +98,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvRetweetCount = itemView.findViewById(R.id.tvRetweet);
             ivLike = (ImageView) itemView.findViewById(R.id.ivLike);
             ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
+
+
+            //twitterClient to make the post request here instead
+            twitterClient = TwitterApp.getRestClient(context);
+
+
 
         }
 
@@ -144,9 +157,22 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         tvRetweetCount.setText(Integer.toString(newCount));
                         view.setSelected(true);
                         retweeted = true;
-                        Intent intent = new Intent(context, RetweetActivity.class);
-                        intent.putExtra("tweet", Parcels.wrap(tweet));
-                        context.startActivity(intent);
+                        Toast.makeText(context, "You just retweeted this post, Nice!", Toast.LENGTH_LONG).show();
+                        twitterClient.publishRetweet(tweet.body, tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i(context.toString(), "Post request (RETWEET) onSuccess");
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                                Log.e(context.toString(), "Post request (RETWEET) onFailure", throwable);
+                            }
+                        });
+
+                        // Intent intent = new Intent(context, RetweetActivity.class);
+                       // intent.putExtra("tweet", Parcels.wrap(tweet));
+                       // context.startActivity(intent);
                     }
                     else{
                         int newCount = Integer.parseInt(tweet.retweetCount) - 1;
@@ -156,7 +182,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         retweeted = false;
                     }
 
-                    Log.i("Tweets Adapter", "in iv onclick listener");
+                    //Log.i("Tweets Adapter", "in iv onclick listener");
                 }
             });
 
