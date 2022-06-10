@@ -1,6 +1,9 @@
 package com.codepath.apps.restclienttemplate;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +18,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
     Context context;
     List<Tweet> tweets;
-
 
     public TweetsAdapter(Context context, List<Tweet> tweets) {
         this.context = context;
@@ -60,6 +64,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        private final int REQUEST_CODE = 21;
+
 
         Boolean retweeted = false;
         Boolean liked = false;
@@ -138,6 +144,9 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         tvRetweetCount.setText(Integer.toString(newCount));
                         view.setSelected(true);
                         retweeted = true;
+                        Intent intent = new Intent(context, RetweetActivity.class);
+                        intent.putExtra("tweet", Parcels.wrap(tweet));
+                        context.startActivity(intent);
                     }
                     else{
                         int newCount = Integer.parseInt(tweet.retweetCount) - 1;
