@@ -1,9 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
 import android.content.Context;
 import android.content.Intent;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,13 +54,11 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         return tweets.size();
     }
 
-    // Clean all elements of the recycler
     public void clear() {
         tweets.clear();
         notifyDataSetChanged();
     }
 
-    // Add a list of items -- change to type used
     public void addAll(List<Tweet> list) {
         tweets.addAll(list);
         notifyDataSetChanged();
@@ -98,11 +95,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvRetweetCount = itemView.findViewById(R.id.tvRetweet);
             ivLike = (ImageView) itemView.findViewById(R.id.ivLike);
             ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
+            ivReply = (ImageView) itemView.findViewById(R.id.ivReply);
 
-
-            //twitterClient to make the post request here instead
+            //a reference to the twitterClient to make the post request here instead
             twitterClient = TwitterApp.getRestClient(context);
 
+            tvBody.setMovementMethod(LinkMovementMethod.getInstance());
 
 
         }
@@ -119,16 +117,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Glide.with(context).load(tweet.user.profileImageUrl)
                     .transform(new RoundedCorners(radius)).into(ivProfileImage);
 
-            Glide.with(context).load(tweet.media)
-//                    .override(680, 454)
-//                    .transform(new RoundedCorners(radius))
-                    .into(ivMedia);
+            Glide.with(context).load(tweet.media).into(ivMedia);
 
             //like imageView functionality
             ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(!liked){
+                        Toast.makeText(context, "Post Liked", Toast.LENGTH_SHORT).show();
                         int newCount = Integer.parseInt(tweet.likeCount) + 1;
                         tweet.likeCount = Integer.toString(newCount);
                         tvLikeCount.setText(Integer.toString(newCount));
@@ -136,6 +132,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         liked = true;
                     }
                     else{
+                        Toast.makeText(context, "Post Unliked", Toast.LENGTH_SHORT).show();
                         int newCount = Integer.parseInt(tweet.likeCount) - 1;
                         tweet.likeCount = Integer.toString(newCount);
                         tvLikeCount.setText(Integer.toString(newCount));
@@ -175,6 +172,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                        // context.startActivity(intent);
                     }
                     else{
+                        Toast.makeText(context, "You just un-retweeted this post", Toast.LENGTH_LONG).show();
                         int newCount = Integer.parseInt(tweet.retweetCount) - 1;
                         tweet.retweetCount = Integer.toString(newCount);
                         tvRetweetCount.setText(Integer.toString(newCount));
@@ -182,7 +180,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                         retweeted = false;
                     }
 
-                    //Log.i("Tweets Adapter", "in iv onclick listener");
+                    Log.i("Tweets Adapter", "in iv onclick listener");
                 }
             });
 

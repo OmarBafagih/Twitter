@@ -50,7 +50,11 @@
             android:layout_marginTop="2dp"
             android:layout_toEndOf="@+id/ivProfileImage"
             android:textColor="?attr/text_color"
-            tools:text="Placeholder text" />
+            android:textColorLink="@color/twitter_blue"
+            tools:text="Placeholder text"
+            android:autoLink="web"
+
+           />
 
         <ImageView
             android:id="@+id/ivMedia"

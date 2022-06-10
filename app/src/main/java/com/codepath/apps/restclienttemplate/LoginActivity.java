@@ -23,13 +23,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
 		super.onCreate(savedInstanceState);
 
-
-
 		setContentView(R.layout.activity_login);
-
-		//setTheme(R.style.darkTheme);
-		//AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-
 
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
