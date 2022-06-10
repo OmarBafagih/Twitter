@@ -4,7 +4,9 @@
 
 Time spent: **X** hours spent in total
 
-[![Demo](https://github.com/OmarBafagih/Twitter/blob/main/Twitter_Demo.mp4)](https://github.com/OmarBafagih/Twitter/blob/main/Twitter_Demo.mp4)
+
+https://user-images.githubusercontent.com/71048942/173159715-feab4a51-806a-4e80-b583-5ee6c5b149d6.mp4
+
 
 ## User Stories
 
