@@ -59,7 +59,7 @@ public class TimelineActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme(R.style.darkTheme);
+        //setTheme(R.style.darkTheme);
         setContentView(R.layout.activity_timeline);
 
         //Toolbar toolbar = (Toolbar) findViewById()

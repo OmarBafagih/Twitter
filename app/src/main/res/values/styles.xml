@@ -43,12 +43,6 @@
         <item name="button_color">#ffff</item>
     </style>
 
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar">
-
-        <!-- Support library compatibility -->
-        <item name="android:background">@drawable/ic_launcher_twitter_round</item>// your nine patch image
-        <item name="android:icon">@android:color/transparent</item>
-    </style>
 
 <!--    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight"/>-->
 

@@ -22,13 +22,14 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String media;
+    public String likeCount;
+    public String retweetCount;
 
     //this empty constructor is required to use the Parceler library
     public Tweet(){}
 
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
-
         if(jsonObject.has("full_text")) {
             tweet.body = jsonObject.getString("full_text");
             if(jsonObject.getJSONObject("entities").has("media")){
@@ -38,6 +39,9 @@ public class Tweet {
         } else {
             tweet.body = jsonObject.getString("text");
         }
+
+        tweet.likeCount = jsonObject.getString("favorite_count");
+        tweet.retweetCount = jsonObject.getString("retweet_count");
         tweet.createdAt = tweet.getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
         return tweet;
@@ -67,7 +71,7 @@ public class Tweet {
             long time = sf.parse(rawJsonDate).getTime();
             long now = System.currentTimeMillis();
 
-            final long diff = time - now;
+            final long diff = now - time;
             if (diff < MINUTE_MILLIS) {
                 return "just now";
             } else if (diff < 2 * MINUTE_MILLIS) {

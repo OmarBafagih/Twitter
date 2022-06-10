@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,11 +60,19 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+
+        Boolean retweeted = false;
+        Boolean liked = false;
+
         ImageView ivProfileImage;
         TextView tvBody;
         TextView tvScreenName;
         ImageView ivMedia;
         TextView tvRelativeTime;
+        TextView tvLikeCount;
+        TextView tvRetweetCount;
+        ImageView ivLike;
+        ImageView ivRetweet;
 
         public ViewHolder(@NonNull View itemView){
             super(itemView);
@@ -72,7 +81,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivMedia = itemView.findViewById(R.id.ivMedia);
             tvRelativeTime = itemView.findViewById(R.id.tvRelativeTime);
-
+            tvLikeCount = itemView.findViewById(R.id.tvLike);
+            tvRetweetCount = itemView.findViewById(R.id.tvRetweet);
+            ivLike = (ImageView) itemView.findViewById(R.id.ivLike);
+            ivRetweet = (ImageView) itemView.findViewById(R.id.ivRetweet);
 
         }
 
@@ -80,6 +92,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             tvRelativeTime.setText(tweet.createdAt);
+            tvLikeCount.setText(tweet.likeCount);
+            tvRetweetCount.setText(tweet.retweetCount);
 
             int radius = 50;
             //loading media image with glide into imageview
@@ -91,7 +105,51 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 //                    .transform(new RoundedCorners(radius))
                     .into(ivMedia);
 
+            //like imageView functionality
+            ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!liked){
+                        int newCount = Integer.parseInt(tweet.likeCount) + 1;
+                        tweet.likeCount = Integer.toString(newCount);
+                        tvLikeCount.setText(Integer.toString(newCount));
+                        view.setSelected(true);
+                        liked = true;
+                    }
+                    else{
+                        int newCount = Integer.parseInt(tweet.likeCount) - 1;
+                        tweet.likeCount = Integer.toString(newCount);
+                        tvLikeCount.setText(Integer.toString(newCount));
+                        view.setSelected(false);
+                        liked = false;
+                    }
 
+                    Log.i("Tweets Adapter", "in iv onclick listener");
+                }
+            });
+
+            //retweet imageView functionality
+            ivRetweet.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!retweeted){
+                        int newCount = Integer.parseInt(tweet.retweetCount) + 1;
+                        tweet.retweetCount = Integer.toString(newCount);
+                        tvRetweetCount.setText(Integer.toString(newCount));
+                        view.setSelected(true);
+                        retweeted = true;
+                    }
+                    else{
+                        int newCount = Integer.parseInt(tweet.retweetCount) - 1;
+                        tweet.retweetCount = Integer.toString(newCount);
+                        tvRetweetCount.setText(Integer.toString(newCount));
+                        view.setSelected(false);
+                        retweeted = false;
+                    }
+
+                    Log.i("Tweets Adapter", "in iv onclick listener");
+                }
+            });
 
         }
     }
