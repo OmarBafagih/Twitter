@@ -2,7 +2,7 @@
 
 **Twitter clone** is an android app that allows a user to view their Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **X** hours spent in total
+Time spent: **15-20** hours spent in total
 
 
 https://user-images.githubusercontent.com/71048942/173159715-feab4a51-806a-4e80-b583-5ee6c5b149d6.mp4
